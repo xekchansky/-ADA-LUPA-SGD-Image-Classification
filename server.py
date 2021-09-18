@@ -4,6 +4,7 @@ import numpy as np
 import os
 import pandas as pd
 from sklearn import preprocessing
+#from tensorflow.keras.models import clone_model
 
 import utils
 import worker
@@ -30,7 +31,7 @@ class Server:
             self.nodes[i].preprocess_data()
             
             if debug: print('Setting start model')
-            self.nodes[i].model = self.model
+            self.nodes[i].model = utils.make_model(learning_rate=learning_rate, regularization_rate=regularization_rate)
             
             if debug: print('Setting initialization weights')
             for j in range(len(self.model.layers)):
@@ -85,16 +86,14 @@ class Server:
         self.accuracies.append(acc)
         if self.debug: print("Model, accuracy: {:5.2f}%".format(100 * acc))
 
-    def run(self, Mu, a, rounds=10, epochs_per_round=1, steps_per_epoch=100, local_steps=9, minibatch_size=128):
+    def run(self, Mu, a, rounds=10, local_steps=9, minibatch_size=128):
         for r in range(rounds):
             #train workers and collect weights
             if self.debug: print('Start of round', r)
             if self.debug: print('learning rate:', 4 / (Mu * (r * local_steps + a)))
             for i in range(len(self.nodes)):
                 if self.debug: print('Worker', i)
-                self.nodes[i].fit_model(epochs=epochs_per_round, 
-                                        steps_per_epoch=steps_per_epoch, 
-                                        local_steps=local_steps, 
+                self.nodes[i].fit_model(local_steps=local_steps, 
                                         minibatch_size=minibatch_size,
                                         num_round=r,
                                         Mu=Mu,

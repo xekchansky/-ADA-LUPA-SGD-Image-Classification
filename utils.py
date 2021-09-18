@@ -23,14 +23,23 @@ def get_data(df, total_files=4559688, batch_size=10, seed=228):
         image_name = str(image_id) + '.jpg'
         image = imread(path + '\\' + image_name)
 
-def make_model(learning_rate, regularization_rate, seed=0):
+def make_model(learning_rate=None, regularization_rate=None, seed=0):
     img_height = 256
     img_width = 256
 
     initializer = initializers.HeNormal(seed=seed)
-    optimizer = tf.keras.optimizers.Adam(lr=learning_rate)
-    kernel_regularizer = tf.keras.regularizers.L2(regularization_rate)
-    dense_kernel_regilarizer = tf.keras.regularizers.L2(regularization_rate)
+    
+    if learning_rate is None:
+        optimizer = tf.keras.optimizers.Adam()
+    else:
+        optimizer = tf.keras.optimizers.Adam(lr=learning_rate)
+    
+    if regularization_rate is None:
+        kernel_regularizer = None
+        dense_kernel_regilarizer = None
+    else:
+        kernel_regularizer = tf.keras.regularizers.L2(regularization_rate)
+        dense_kernel_regilarizer = tf.keras.regularizers.L2(regularization_rate)
     activity_regularizer = None #tf.keras.regularizers.L2(0.01)
     dense_activity_regularizer = None
     

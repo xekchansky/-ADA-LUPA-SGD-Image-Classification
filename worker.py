@@ -83,13 +83,7 @@ class Worker:
         self.X_train = X
         self.y_train = y
         
-    def fit_model(self, num_round, Mu, a, epochs=1, steps_per_epoch=100, local_steps=1, minibatch_size=128):
-        #validation_data = None
-        #if self.validation_data_size > 0:
-        #    validation_data = (self.X_test, self.y_test)
-        #self.history = self.model.fit(self.X_train, self.y_train, epochs=epochs, steps_per_epoch=steps_per_epoch,
-        #            validation_data=validation_data)
-        
+    def fit_model(self, num_round, Mu, a, local_steps=1, minibatch_size=128):
         X_train, y_train = shuffle(self.X_train, self.y_train, random_state=self.seed+num_round)
         for i in range(local_steps):
             #get minibutch
