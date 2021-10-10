@@ -1,0 +1,20 @@
+---
+#cloud-config
+users:
+  - default
+  - name: xekchansky
+    gecos: Ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    shell: /bin/bash
+    ssh_import_id: None
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCrihyVohqKPwAnBce/u5h3KHKxpHgp12gasaLV987npP5TaY8NFvbCGDpMV/bwbEsjSvuYlNuDZ1z69ziBzxpvhODtd5ilGo3wcvCwlCP1kax37WLEQc+GcrAVhHF47fdpRsOVTczO6FTSl2hUGBF/lHp8uEFLA6C870zGBFrouwjfmC0EhByO4KEFqhSGKO3fZ1pmk5Y0wL2nOKGhhq1kUi7f51olYds2Hl9h4gY+T86qsHEfl6hbdVtpWYJlUwXRwDKwo69xIRlXBmE9PPd8yITAXx+RlbdYEwYTO7+jUnfjSj6iZhSs0fGrEmAop6mGATvGm9S0yPGhSqvvAK9Avw+jFooSFvYlFc0JSW6xEs8GcC/nnf3Ab+ytK5lbOXtgUrGbyj4eVYWWgHOc1LRc/Yh26y6BeV81F1Mrv/zWTvfikvpzENYs1HgA6rMszPjc0cEuaXuUt7yX3T0EOy8XQNxW44vVLxvV+mWYO9H0p0K47fzPaStKZGL2RYvPoWk= xekchansky@xekchansky-IdeaPad-Gaming-3-15IMH05
+package_update: true
+package_upgrade: true
+packages:
+  - python3-pip
+  - cmake
+  - openmpi-bin
+        
